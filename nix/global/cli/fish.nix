@@ -13,8 +13,8 @@
       fzf --fish | source
     '';
     shellAliases = {
-      rebuild-switch = "sudo nixos-rebuild switch --flake ~/nix-config#${hostVars.hostname}";
-      rebuild-boot = "sudo nixos-rebuild switch --flake ~/nix-config#${hostVars.hostname}";
+      rebuild-switch = "sudo nixos-rebuild switch --flake path:${baseVars.flakeDir}#${hostVars.hostname}";
+      rebuild-boot = "sudo nixos-rebuild switch --flake path:${baseVars.flakeDir}#${hostVars.hostname}";
     };
     plugins = with pkgs.fishPlugins; [
       { name = "autopair"; src = autopair.src; }
