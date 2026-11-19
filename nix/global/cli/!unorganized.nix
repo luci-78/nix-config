@@ -9,4 +9,6 @@
     micro
     btop
   ];
+
+  environment.sessionVariables.EDITOR = "micro";
 }
