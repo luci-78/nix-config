@@ -3,11 +3,11 @@
 {
   environment.systemPackages = with pkgs; [
     wl-clipboard
+    fd
     zoxide
     fzf
     croc
     micro
-    btop
   ];
 
   environment.sessionVariables.EDITOR = "micro";

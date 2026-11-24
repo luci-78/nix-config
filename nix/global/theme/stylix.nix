@@ -29,6 +29,6 @@
       "gtk"
     ]) (name: { enable = false; })
     // lib.genAttrs ([
-      "yazi"
+      "yazi" "btop"
     ]) (name: { colors.enable = false; });
 }
