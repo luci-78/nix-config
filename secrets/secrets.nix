@@ -6,4 +6,5 @@ let
   }) files);
 in mkSecrets [
   "test-secret"
+  "wg0"
 ]

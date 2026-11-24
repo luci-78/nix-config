@@ -21,6 +21,7 @@
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
   };
 
   outputs = inputs: { nixosConfigurations = import ./nix/nixos-configurations.nix { inherit inputs; }; };
