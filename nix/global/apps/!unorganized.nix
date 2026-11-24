@@ -2,7 +2,7 @@
 
 {
   environment.systemPackages = with pkgs; [
-    nur.repos.Ev357.helium
+    (nur.repos.Ev357.helium.override { enableWideVine = true; })
     zed-editor
   ];
 }
