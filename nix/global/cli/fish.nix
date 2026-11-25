@@ -15,6 +15,8 @@
     shellAliases = {
       rebuild-switch = "sudo nixos-rebuild switch --flake path:${baseVars.flakeDir}#${hostVars.hostname}";
       rebuild-boot = "sudo nixos-rebuild switch --flake path:${baseVars.flakeDir}#${hostVars.hostname}";
+      flake-update = "sudo nix flake update --flake path:${baseVars.flakeDir}#${hostVars.hostname}";
+      nix-clean = "sudo nix-collect-garbage --delete-older-than 5d && nix-collect-garbage --delete-older-than 5d && sudo nix-store --optimise";
     };
     plugins = with pkgs.fishPlugins; [
       { name = "autopair"; src = autopair.src; }
