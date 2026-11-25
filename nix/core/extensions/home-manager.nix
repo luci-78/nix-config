@@ -6,5 +6,6 @@
     (lib.mkAliasOptionModule [ "hm" ] [ "home-manager" "users" baseVars.username ])
   ];
 
+  home-manager.useGlobalPkgs = true;
   hm.home.stateVersion = baseVars.stateVersion;
 }
