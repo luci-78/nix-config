@@ -20,7 +20,7 @@ in
       Preferences = {
         General.Locale = "en";
         WebUI = {
-          Username = "luci";
+          Username = baseVars.username;
           Password_PBKDF2 = "QdRPvU0ljx7SZMQ3BlIN1A==:JwQoYiJAMjj9IyHCok6kmPxspb2ONiDA8r4GX5dBcvVpF0ngg0hkYU++7yap+JpTDr4S6UvwzPaHGfQiBeknfA==";
         };
       };
@@ -29,10 +29,13 @@ in
 
   # default to downloading to ~/torrent
   services.qbittorrent.serverConfig.BitTorrent.Session.DefaultSavePath = "/srv/torrent";
-  systemd.tmpfiles.rules = with { qbit = config.services.qbittorrent; }; [
-    "d /srv/torrent 0775 ${qbit.user} ${qbit.group} -"
-    "L+ /home/${baseVars.username}/torrent - - - - /srv/torrent"
+  systemd.tmpfiles.rules = [
+    "d /srv/torrent 0777 - - -"
+    "Z /srv/torrent 0777 - - -"
+    "L+ /home/cassie/torrent - - - - /srv/torrent"
   ];
+  # files downloaded by qbit should always free for everyone
+  systemd.services.qbittorrent.serviceConfig.UMask = "0000";
 
   # isolate qbittorrent service to vpn
   vpnNamespaces.${namespace.name} = {
