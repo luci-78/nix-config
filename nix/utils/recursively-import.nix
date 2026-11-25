@@ -1,19 +1,13 @@
-# keeping this file unchanged from https://github.com/llakala/synaptic-standard, how I started this config
 { lib }:
 
 let
-  inherit (lib) hasSuffix;
-  inherit (builtins) concatMap isPath filter readFileType;
-
   expandIfFolder = elem:
-    if !isPath elem || readFileType elem != "directory"
+    if !builtins.isPath elem || builtins.readFileType elem != "directory"
       then [ elem ]
     else lib.filesystem.listFilesRecursive elem;
-
 in
-  list: filter
-    # Filter out any path that doesn't look like `*.nix`. Don't forget to use
-    # toString to prevent copying paths to the store unnecessarily
-    (elem: !isPath elem || hasSuffix ".nix" (toString elem))
-    # Expand any folder to all the files within it.
-    (concatMap expandIfFolder list)
+  list:
+    # expand folders to all their contents
+    builtins.concatMap expandIfFolder list
+    # filter out non-nix files
+    |> builtins.filter (e: !builtins.isPath e || lib.hasSuffix ".nix" (toString e))
