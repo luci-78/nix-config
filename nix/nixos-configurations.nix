@@ -2,7 +2,14 @@
 
 let
   lib = inputs.nixpkgs.lib;
-  recursivelyImport = import ./utils/recursively-import.nix { inherit lib; };
+
+  recursiveNixFiles = list:
+    builtins.concatMap
+      (e: if (builtins.readFileType e) == "directory"
+        then lib.filesystem.listFilesRecursive e
+        else [ e ])
+      list
+    |> builtins.filter (e: (toString e) |> lib.hasSuffix ".nix");
 
   specialArgs = {
     inherit inputs;
@@ -19,6 +26,6 @@ in
     specialArgs = specialArgs // {
       hostVars.hostname = "lapluci";
     };
-    modules = recursivelyImport (globalModules ++ [ ./hosts/laptop ]);
+    modules = recursiveNixFiles (globalModules ++ [ ./hosts/laptop ]);
   };
 }
