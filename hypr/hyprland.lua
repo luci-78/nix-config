@@ -10,5 +10,6 @@ local function launch(slice, command)
 end
 hl.on("hyprland.start", function ()
     launch("s", "swaybg --mode fill --image ~/nix-config/assets/wallpaper.svg")
-    launch("s", "hyprlauncher -d")
+    launch("s", "quickshell --daemonize")
+    launch("s", "hyprlauncher --daemon")
 end)
