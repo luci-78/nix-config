@@ -1,11 +1,12 @@
-local function launch_bind(command)
-    return hl.dsp.exec_cmd("uwsm app -- " .. command)
+---@param slice "b"|"a"|"s" - priority for CPU/RW/RAM - b: bkg, a: app, s: session
+local function launch_bind(slice, command)
+    return hl.dsp.exec_cmd("uwsm app -s " .. slice .. " -- " .. command)
 end
 
-hl.bind("SUPER + Q", launch_bind "kitty")
-hl.bind("SUPER + E", launch_bind "kitty -e yazi")
+hl.bind("SUPER + Q", launch_bind("a", "kitty"))
+hl.bind("SUPER + E", launch_bind("a", "kitty -e yazi"))
 hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("hyprlauncher"), { release = true })
-hl.bind("SUPER + SHIFT + S", launch_bind "hyprshot -m region --clipboard-only --silent --freeze")
+hl.bind("SUPER + SHIFT + S", launch_bind("s", "hyprshot -m region --clipboard-only --silent --freeze"))
 -- TODO: cliphist SUPER + V
 -- TODO: stt SUPER + R
 
