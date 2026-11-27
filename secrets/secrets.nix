@@ -6,5 +6,6 @@ let
   }) files);
 in mkSecrets [
   "test-secret"
-  "wg0"
+  "wireguard-lapluci"
+  "wireguard-deskluci" # yea I don't use this yet but I WILL!
 ]

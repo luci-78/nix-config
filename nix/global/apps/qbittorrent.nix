@@ -1,10 +1,10 @@
-{ inputs, config, lib, pkgs, baseVars, ... }:
+{ inputs, config, lib, pkgs, baseVars, hostVars, ... }:
 
 let
   namespace = {
     name = "qbit";
     address = "192.168.15.78";
-    torrentPort = 60729;
+    torrentPort = 28539;
     webuiPort = 7880;
   };
 in
@@ -19,6 +19,11 @@ in
       LegalNotice.Accepted = true;
       Preferences = {
         General.Locale = "en";
+        Connection = {
+          PortRangeMin = namespace.torrentPort;
+          UPnP = false;
+        };
+        General.UseRandomPort = false;
         WebUI = {
           Username = baseVars.username;
           Password_PBKDF2 = "QdRPvU0ljx7SZMQ3BlIN1A==:JwQoYiJAMjj9IyHCok6kmPxspb2ONiDA8r4GX5dBcvVpF0ngg0hkYU++7yap+JpTDr4S6UvwzPaHGfQiBeknfA==";
@@ -40,7 +45,7 @@ in
   # isolate qbittorrent service to vpn
   vpnNamespaces.${namespace.name} = {
     enable = true;
-    wireguardConfigFile = config.age.secrets.wg0.path;
+    wireguardConfigFile = config.age.secrets."wireguard-${hostVars.hostname}".path;
     allowedIngress = [ "192.168.0.0/24" ];
     namespaceAddress = namespace.address;
     portMappings = [ namespace.webuiPort ];
