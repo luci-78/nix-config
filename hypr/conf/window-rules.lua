@@ -12,3 +12,10 @@ hl.window_rule {
     },
     no_focus = true,
 }
+
+hl.window_rule {
+    name = "float-bitwarden",
+    match = { class = "^chrome-nngceckbapebfimnlniiiahkandclblb-Default$" },
+    float = true,
+    center = true,
+}
